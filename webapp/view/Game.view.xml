@@ -1,0 +1,100 @@
+<mvc:View
+    controllerName="pt.pcdinis.ui5memgame.ui5memgame.controller.Game"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f"
+	xmlns:w="sap.ui.integration.widgets"
+	xmlns:core="sap.ui.core"
+	xmlns:card="sap.f.cards"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+<!--	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+
+					</content>
+				</Page>
+			</pages>
+
+		</App>
+	</Shell> -->
+
+	<ScrollContainer
+		height="100%"
+		width="100%"
+		vertical="true">
+
+				<Button text="Back"
+						press="onPressBack">
+				</Button>
+		<f:GridContainer id="demoGrid" class="sapUiSmallMargin" columnsChange=".onGridColumnsChange">
+			<f:layout>
+				<f:GridContainerSettings rowSize="84px" columnSize="84px" gap="8px" />
+			</f:layout>
+			<f:layoutXS>
+				<f:GridContainerSettings rowSize="70px" columnSize="70px" gap="8px" />
+			</f:layoutXS>
+
+			<GenericTile
+				id="tile1"
+				press="onPress"
+				header=""
+				subheader="">
+				<layoutData>
+					<f:GridContainerItemLayoutData minRows="2" columns="2" />
+				</layoutData>
+				<TileContent unit="" footer="">
+					<ImageContent src="" />
+				</TileContent>
+			</GenericTile>
+
+			<GenericTile header="Manage Activity Master Data Type" subheader="Subtitle">
+				<layoutData>
+					<f:GridContainerItemLayoutData minRows="2" columns="2" />
+				</layoutData>
+				<TileContent>
+					<ImageContent src="sap-icon://activities" />
+				</TileContent>
+			</GenericTile>
+
+			<GenericTile header="Cumulative Totals" subheader="Subtitle">
+				<layoutData>
+					<f:GridContainerItemLayoutData minRows="2" columns="2" />
+				</layoutData>
+				<TileContent unit="Unit" footer="Footer Text">
+					<NumericContent value="12" />
+				</TileContent>
+			</GenericTile>
+
+			<GenericTile header="Travel and Expenses" subheader="Access Concur">
+				<layoutData>
+					<f:GridContainerItemLayoutData minRows="2" columns="2" />
+				</layoutData>
+				<TileContent>
+					<ImageContent src="sap-icon://travel-expense" />
+				</TileContent>
+			</GenericTile>
+
+			<GenericTile header="Success Map" subheader="Access Success Map">
+				<layoutData>
+					<f:GridContainerItemLayoutData minRows="2" columns="2" />
+				</layoutData>
+				<TileContent unit="EUR" footer="Current Quarter">
+					<ImageContent src="sap-icon://map-3" />
+				</TileContent>
+			</GenericTile>
+
+			<GenericTile header="My Team Calendar">
+				<layoutData>
+					<f:GridContainerItemLayoutData minRows="2" columns="2" />
+				</layoutData>
+				<TileContent unit="EUR" footer="Current Quarter">
+					<ImageContent src="sap-icon://check-availability" />
+				</TileContent>
+			</GenericTile>
+
+		</f:GridContainer>
+	</ScrollContainer>
+</mvc:View>

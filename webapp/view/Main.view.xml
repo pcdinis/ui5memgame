@@ -1,0 +1,29 @@
+<mvc:View
+    controllerName="pt.pcdinis.ui5memgame.ui5memgame.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f"
+	xmlns:w="sap.ui.integration.widgets"
+	xmlns:core="sap.ui.core"
+	xmlns:card="sap.f.cards"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<Button text="Easy" press="onPressEasyLvl">
+						</Button>
+						<Button text="Medium" press="onPressMediumLvl">
+						</Button>
+						<Button text="Hard" press="onPressHardLvl">
+						</Button>
+					</content>
+				</Page>
+			</pages>
+
+		</App>
+	</Shell>
+
+</mvc:View>
