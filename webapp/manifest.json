@@ -83,21 +83,21 @@
         },
         {
           "name": "RouteGame",
-          "pattern": "RouteGame",
+          "pattern": "RouteGame/{levelId}",
           "target": ["TargetGame"]
         }
       ],
       "targets": {
         "TargetMain": {
           "viewType": "XML",
-          "transition": "slide",
+          "transition": "flip",
           "clearControlAggregation": false,
           "viewId": "Main2", 
           "viewName": "Main"
         },
         "TargetGame": {
           "viewType": "XML",
-          "transition": "slide",
+          "transition": "flip",
           "clearControlAggregation": false,
           "viewId": "Game",
           "viewName": "Game"

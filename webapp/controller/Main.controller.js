@@ -16,17 +16,21 @@ sap.ui.define([
 
 			onPressEasyLvl: function (oEvent){
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo("RouteGame");
+				oRouter.navTo("RouteGame", {levelId : "easy"});
 			},
 
 			onPressMediumLvl: function (oEvent){
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo("RouteGame");
+				oRouter.navTo("RouteGame", {levelId : "medium"});
 			},
 
 			onPressHardLvl: function (oEvent){
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo("RouteGame");
+				oRouter.navTo("RouteGame", {levelId : "hard"});
+			},
+			
+			onPressExit: function (oEvent){
+				window.close();
 			}
 			
 		});

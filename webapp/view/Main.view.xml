@@ -19,6 +19,8 @@
 						</Button>
 						<Button text="Hard" press="onPressHardLvl">
 						</Button>
+						<Button text="Exit" press="onPressExit">
+						</Button>						
 					</content>
 				</Page>
 			</pages>
