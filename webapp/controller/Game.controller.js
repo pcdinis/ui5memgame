@@ -44,22 +44,22 @@ sap.ui.define([
 				// Create VBox and Tiles dinamically
 				var data = {
 					"items": [{
-						"tId": "tile1",
+						"key": "tile1",
 						"title": "title1",
 						"subtitle": "subtitle1"
 						
 					}, {
-						"tId": "tile2",
+						"key": "tile2",
 						"title": "title2",
 						"subtitle": "subtitle2"
 						
 					}, {
-						"tId": "tile3",
+						"key": "tile3",
 						"title": "title3",
 						"subtitle": "subtitle3"
 						
 					}, {
-						"tId": "tile4",
+						"key": "tile4",
 						"title": "title4",
 						"subtitle": "subtitle4"
 						
@@ -74,11 +74,23 @@ sap.ui.define([
 
 				oModel.refresh();
 				
+				var grid = this.getView().byId("panelForGridList");
+
+				
+				var newTile = new sap.m.GenericTile({
+					header : 'Performance',
+					subheader : 'Resource performance based on the fixed goals in %',
+//                            backgroundImage : 'https://36.media.tumblr.com/4c1c24d32d29fe4d2667102a67b07d05/tumblr_nfeoirox8O1qi1d8wo3_500.png',
+					headerImage : 'sap-icon://performance'
+					});
+
+					newTile.placeAt(grid);
+
 				
 			},
 
 			onPress: function (){
-				var idtile1 = this.byId("tile1");
+				var idtile1 = this.byId("tile");
 				if(front === 0){
 					idtile1.setBackgroundImage("images/zigzag_pattern.jpg")
 					front = 1;

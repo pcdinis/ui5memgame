@@ -27,37 +27,48 @@
 			</Toolbar>
 		</headerToolbar>
 
-		<f:GridList
+<!--		<f:GridList
 			id="gridList"
 			headerText="GridList header"
 			items="{/items}">
 			<f:GridListItem>
-				<!-- <VBox class="sapUiSmallMargin">
+				 <VBox class="sapUiSmallMargin">
 					<layoutData>
 						<FlexItemData growFactor="1" shrinkFactor="0" /> 
 					</layoutData>
 
 					<Title text="{title}" wrapping="true" />
 					<Label text="{subtitle}" wrapping="true" />
-
-
-
-				</VBox> -->
+				</VBox> 
 
 				<GenericTile
-					id="tile1"
+					id="tile10"
 					press="onPress"
-					header=""
+					header="ola"
 					subheader="">
 					<layoutData>
-						<f:GridContainerItemLayoutData minRows="2" columns="2" />
+						<f:GridContainerItemLayoutData minRows="2" columns="1" />
 					</layoutData>
 					<TileContent unit="" footer="">
 						<ImageContent src="" />
 					</TileContent>
 				</GenericTile>
 			</f:GridListItem>
-		</f:GridList>
+		</f:GridList>-->
+
+				<GenericTile
+					id="tile"
+					press="onPress"
+					header=""
+					subheader="">
+					<layoutData>
+						<f:GridContainerItemLayoutData minRows="2" columns="1" />
+					</layoutData>
+					<TileContent unit="" footer="">
+						<ImageContent src="" />
+					</TileContent>
+				</GenericTile>
+
 	</Panel>
 
 
@@ -77,6 +88,14 @@
 				<f:GridContainerSettings rowSize="70px" columnSize="70px" gap="8px" />
 			</f:layoutXS>
 
+				<GenericTile id="tile10" press="onPress" header="ola" subheader="">
+					<layoutData>
+						<f:GridContainerItemLayoutData minRows="2" columns="2" />
+					</layoutData>
+					<TileContent unit="" footer="">
+						<ImageContent src="" />
+					</TileContent>
+				</GenericTile>
 
 			<GenericTile header="Manage Activity Master Data Type" subheader="Subtitle">
 				<layoutData>
