@@ -20,6 +20,10 @@
 
 		</App>
 	</Shell> -->
+	<Button text="Back"
+		press="onPressBack">
+	</Button>
+	
 	<Panel id="panelForGridList">
 		<headerToolbar>
 			<Toolbar height="3rem">
@@ -56,7 +60,7 @@
 			</f:GridListItem>
 		</f:GridList>-->
 
-				<GenericTile
+<!--				<GenericTile
 					id="tile"
 					press="onPress"
 					header=""
@@ -67,19 +71,17 @@
 					<TileContent unit="" footer="">
 						<ImageContent src="" />
 					</TileContent>
-				</GenericTile>
+				</GenericTile>-->
 
 	</Panel>
 
 
-	<ScrollContainer
+<!--	<ScrollContainer
 		height="100%"
 		width="100%"
 		vertical="true">
 
-				<Button text="Back"
-						press="onPressBack">
-				</Button>
+
 		<f:GridContainer id="demoGrid" class="sapUiSmallMargin" columnsChange=".onGridColumnsChange">
 			<f:layout>
 				<f:GridContainerSettings rowSize="84px" columnSize="84px" gap="8px" />
@@ -143,5 +145,5 @@
 			</GenericTile>
 
 		</f:GridContainer>
-	</ScrollContainer>
+	</ScrollContainer>-->
 </mvc:View>

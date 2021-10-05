@@ -9,7 +9,7 @@ sap.ui.define([
 
 		var front = 0;
 		var levelId = "";
-		
+		var cardsArray = [];
 
 		return Controller.extend("pt.pcdinis.ui5memgame.ui5memgame.controller.Game", {
 
@@ -38,59 +38,103 @@ sap.ui.define([
 					}
 				});*/
 
-				// Get level
+				// Get level from parameter
 				levelId = oArgs.levelId;
 
 				// Create VBox and Tiles dinamically
-				var data = {
-					"items": [{
-						"key": "tile1",
-						"title": "title1",
-						"subtitle": "subtitle1"
-						
-					}, {
-						"key": "tile2",
-						"title": "title2",
-						"subtitle": "subtitle2"
-						
-					}, {
-						"key": "tile3",
-						"title": "title3",
-						"subtitle": "subtitle3"
-						
-					}, {
-						"key": "tile4",
-						"title": "title4",
-						"subtitle": "subtitle4"
-						
-					}]
-				}
+				//var data = {
+				//	"items": [{
+				//		"key": "tile1",
+				//		"title": "title1",
+				//		"subtitle": "subtitle1"
+				//		
+				//	}, {
+				//		"key": "tile2",
+				//		"title": "title2",
+				//		"subtitle": "subtitle2"
+				//		
+				//	}, {
+				//		"key": "tile3",
+				//		"title": "title3",
+				//		"subtitle": "subtitle3"
+				//		
+				//	}, {
+				//		"key": "tile4",
+				//		"title": "title4",
+				//		"subtitle": "subtitle4"		
+				//	}]
+				//}
 
-				var oModel = new sap.ui.model.json.JSONModel('items');
-				oModel.setData(data);
-				this.getView().setModel(oModel);
+				//var oModel = new sap.ui.model.json.JSONModel('items');
+				//oModel.setData(data);
+				//this.getView().setModel(oModel);
 				//this.getView().byId("gridList").setModel(oModel);
 				//this.getView().setModel(oModel);
 
-				oModel.refresh();
+				//oModel.refresh();
 				
+				// Get panel object
 				var grid = this.getView().byId("panelForGridList");
 
+				//
+				var numTiles = 0;
+				switch (levelId){
+					case 'easy':
+						numTiles = 16;
+						break;
+					case 'medium':
+						numTiles = 28;
+						break;
+					case 'hard':
+						numTiles = 40;
+						break;
+					default:
+				}
+				// Create tiles based on level
+				var newTile;
 				
-				var newTile = new sap.m.GenericTile({
-					header : 'Performance',
-					subheader : 'Resource performance based on the fixed goals in %',
-//                            backgroundImage : 'https://36.media.tumblr.com/4c1c24d32d29fe4d2667102a67b07d05/tumblr_nfeoirox8O1qi1d8wo3_500.png',
-					headerImage : 'sap-icon://performance'
-					});
+				for( var i=0; i<numTiles; i++){
+					newTile = new sap.m.GenericTile({
+						id : 'tid' + i.toString(),
+						header : '',
+						subheader : '',
+						backgroundImage : 'images/zigzag_pattern.jpg',
+						headerImage : ''
+						});
 
+					// Init card status (back or front)
+					front = 0;
+					var frontimage = '';
+
+					var cardArray = ['tid' + i.toString(), front, frontimage];
+					cardsArray.push(cardArray);
+
+					newTile.attachPress( function(oEvent){ 
+						// Check Id
+
+						// Get front status
+
+						// Set background or front
+						if(front === 0){
+							oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg')
+							front = 1;
+						}else{
+							oEvent.getSource().setBackgroundImage('')
+							front = 0;
+						}
+					 } );
 					newTile.placeAt(grid);
+				}
+
+
+// 'https://36.media.tumblr.com/4c1c24d32d29fe4d2667102a67b07d05/tumblr_nfeoirox8O1qi1d8wo3_500.png'
+					
 
 				
 			},
 
 			onPress: function (){
-				var idtile1 = this.byId("tile");
+				idtile1 = this.byId("tile");
 				if(front === 0){
 					idtile1.setBackgroundImage("images/zigzag_pattern.jpg")
 					front = 1;
