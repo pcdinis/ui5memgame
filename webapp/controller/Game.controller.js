@@ -7,9 +7,14 @@ sap.ui.define([
 	function (Controller) {
 		"use strict";
 
+		const easyNumTiles = 16;
+		const mediumNumTiles = 28;
+		const hardNumTiles = 40;
+
 		var front = 0;
 		var levelId = "";
 		var cardsArray = [];
+		var randomNum = [];
 
 		return Controller.extend("pt.pcdinis.ui5memgame.ui5memgame.controller.Game", {
 
@@ -23,76 +28,34 @@ sap.ui.define([
 			_onRouteMatched : function (oEvent) {
 				var oArgs, oView;
 				oArgs = oEvent.getParameter("arguments");
-//				oView = this.getView();
-	
-/*				oView.bindElement({
-					path : "/leveId(" + oArgs.levelId + ")",
-					events : {
-						change: this._onBindingChange.bind(this),
-						dataRequested: function (oEvent) {
-							oView.setBusy(true);
-						},
-						dataReceived: function (oEvent) {
-							oView.setBusy(false);
-						}
-					}
-				});*/
 
 				// Get level from parameter
 				levelId = oArgs.levelId;
-
-				// Create VBox and Tiles dinamically
-				//var data = {
-				//	"items": [{
-				//		"key": "tile1",
-				//		"title": "title1",
-				//		"subtitle": "subtitle1"
-				//		
-				//	}, {
-				//		"key": "tile2",
-				//		"title": "title2",
-				//		"subtitle": "subtitle2"
-				//		
-				//	}, {
-				//		"key": "tile3",
-				//		"title": "title3",
-				//		"subtitle": "subtitle3"
-				//		
-				//	}, {
-				//		"key": "tile4",
-				//		"title": "title4",
-				//		"subtitle": "subtitle4"		
-				//	}]
-				//}
-
-				//var oModel = new sap.ui.model.json.JSONModel('items');
-				//oModel.setData(data);
-				//this.getView().setModel(oModel);
-				//this.getView().byId("gridList").setModel(oModel);
-				//this.getView().setModel(oModel);
-
-				//oModel.refresh();
-				
+		
 				// Get panel object
 				var grid = this.getView().byId("panelForGridList");
 
-				//
+				// Set number of tiles based on selected level
 				var numTiles = 0;
 				switch (levelId){
 					case 'easy':
-						numTiles = 16;
+						numTiles = easyNumTiles;
 						break;
 					case 'medium':
-						numTiles = 28;
+						numTiles = mediumNumTiles;
 						break;
 					case 'hard':
-						numTiles = 40;
+						numTiles = hardNumTiles;
 						break;
 					default:
 				}
+
 				// Create tiles based on level
 				var newTile;
 				
+				// Get random numbers into an array
+				this.createRandomArr();
+
 				for( var i=0; i<numTiles; i++){
 					newTile = new sap.m.GenericTile({
 						id : 'tid' + i.toString(),
@@ -102,34 +65,38 @@ sap.ui.define([
 						headerImage : ''
 						});
 
-					// Init card status (back or front)
+					// Init card status (back or front) and front image
 					front = 0;
-					var frontimage = '';
+					// Create path to image
+					var frontimage = 'images/image' + randomNum[i].toString() + '.jpg';
 
+					// Add tile information to card array 
 					var cardArray = ['tid' + i.toString(), front, frontimage];
+					// Add to cardS array
 					cardsArray.push(cardArray);
 
 					newTile.attachPress( function(oEvent){ 
 						// Check Id
-
+						var tileId = oEvent.getSource().getId();
 						// Get front status
-
+						var cardArrayAux = [];
+						for(var i=0; i<cardsArray.length; i++){
+							cardArrayAux = cardsArray[i];
+							if(cardArrayAux[0] == tileId){
+								break;
+							}
+						}
 						// Set background or front
-						if(front === 0){
-							oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg')
-							front = 1;
+						if(cardsArray[i][1] === 1){
+							oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
+							cardsArray[i][1] = 0;
 						}else{
-							oEvent.getSource().setBackgroundImage('')
-							front = 0;
+							oEvent.getSource().setBackgroundImage(cardsArray[i][2]);
+							cardsArray[i][1] = 1;
 						}
 					 } );
 					newTile.placeAt(grid);
 				}
-
-
-// 'https://36.media.tumblr.com/4c1c24d32d29fe4d2667102a67b07d05/tumblr_nfeoirox8O1qi1d8wo3_500.png'
-					
-
 				
 			},
 
@@ -148,6 +115,44 @@ sap.ui.define([
 			onPressBack: function (oEvent){
 				var oRouterBack = sap.ui.core.UIComponent.getRouterFor(this);
 				oRouterBack.navTo("RouteMain");
+			},
+
+			createRandomArr: function(){
+				var number = 0;
+				var stopIteration = false;
+				// Create random number array
+				for(var i=0; i<hardNumTiles; i++){
+					
+					stopIteration = false;
+					var x = 0;
+					// Stop iteration only when a number is found
+					while(stopIteration === false){
+						number = this.getRandomNumber(hardNumTiles);
+						
+						if(randomNum.includes(number) === false){
+							stopIteration = true;
+						}
+
+						if (x === 100){
+							break;
+						}
+						x++;
+
+						//for(t=0; t<hardNumTiles; t++){
+							// If the number was already selected
+						//	if(randomNum[t] === number){
+						//		stopIteration = true;
+						//		break;
+						//	}
+						//}
+					}
+
+					randomNum[i] = number;
+				}
+			},
+
+			getRandomNumber: function(max){
+				return Math.floor(Math.random() * max);
 			}
 		});
 	});
