@@ -72,19 +72,21 @@ sap.ui.define([
 					var frontimage = 'images/image' + randomNum[i].toString() + '.jpg';
 
 					// Add tile information to card array 
-					var cardArray = ['tid' + i.toString(), front, frontimage];
+					var cardArray = ['tid' + i.toString(), front, frontimage, ""];
 					// Add to cardS array
 					cardsArray.push(cardArray);
 
 					var self = this;
 
-					// onPress Event!!!
+					//*******************/
+					// onPress Event!!! */
+					//*******************/
 					newTile.attachPress( function(oEvent){ 
 						var continueFlipCards = true;
 						// Count if there are 2 cards front faced
 						var countCards = 0;
 						for(var x=0; x<cardsArray.length; x++){
-							if(cardsArray[x][1] === 1){
+							if(cardsArray[x][1] === 1 && cardsArray[x][3] === ""){
 								countCards++;
 							}
 						}
@@ -94,28 +96,29 @@ sap.ui.define([
 							var card2 = "";
 							for(var x=0; x<cardsArray.length; x++){
 								if(card1 === ""){
-									card1 = cardsArray[x][2];
+									if(cardsArray[x][1] === 1 && cardsArray[x][3] === ""){
+										card1 = cardsArray[x][2];
+									}
 								}else if(card2 === ""){
-									card2 = cardsArray[x][2];
+									if(cardsArray[x][1] === 1 && cardsArray[x][3] === ""){
+										card2 = cardsArray[x][2];
+									}
 								}
 							}
 							if(card1 != card2){
 								continueFlipCards = false;
 								// Flip cards back over
 								self.resetCard();
+							}else{
+								for(x=0; x<cardsArray.length; x++){
+									if(cardsArray[x][2] === card1){
+										cardsArray[x][3] = "OK";
+									}else if(cardsArray[x][2] === card2){
+										cardsArray[x][3] = "OK";
+									}
+								}
 							}
-							// Timer
-							//self.resetCards = true;
-							//self.sleep(2000);
 
-							//for(var t=0; t<cardsArray.length; t++){
-							//	if(cardsArray[t][1] === 1){
-							//		// Set background
-							//		oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
-							//		cardsArray[t][1] = 0;
-							//	}
-							//}
-							//break;
 						}
 
 						if(continueFlipCards === true){
@@ -129,13 +132,16 @@ sap.ui.define([
 									break;
 								}
 							}
-							// Set background or front
-							if(cardsArray[i][1] === 1){
-								oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
-								cardsArray[i][1] = 0;
-							}else{
-								oEvent.getSource().setBackgroundImage(cardsArray[i][2]);
-								cardsArray[i][1] = 1;
+							// Check if it's a tile already with double ("OK")
+							if(cardsArray[i][3]  != "OK"){						
+								// Set background or front
+								if(cardsArray[i][1] === 1){
+									oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
+									cardsArray[i][1] = 0;
+								}else{
+									oEvent.getSource().setBackgroundImage(cardsArray[i][2]);
+									cardsArray[i][1] = 1;
+								}
 							}
 						}
 						
@@ -252,7 +258,7 @@ sap.ui.define([
 
 				// Set background images
 				for(var i=0; i<cardsArray.length ; i++){
-					if(cardsArray[i][1] === 1){
+					if(cardsArray[i][1] === 1 && cardsArray[i][3] != "OK"){
 					var agg = grid.mAggregations;
 					grid.mAggregations.content[i].setBackgroundImage('images/zigzag_pattern.jpg');
 					cardsArray[i][1] = 0;
