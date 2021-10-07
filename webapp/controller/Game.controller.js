@@ -16,6 +16,7 @@ sap.ui.define([
 		var cardsArray = [];
 		var randomNum = [];
 		var numTiles = 0;
+		//var resetCards = false;
 
 		return Controller.extend("pt.pcdinis.ui5memgame.ui5memgame.controller.Game", {
 
@@ -75,39 +76,72 @@ sap.ui.define([
 					// Add to cardS array
 					cardsArray.push(cardArray);
 
+					var self = this;
+
+					// onPress Event!!!
 					newTile.attachPress( function(oEvent){ 
-						// Check Id
-						var tileId = oEvent.getSource().getId();
-						// Get front status
-						var cardArrayAux = [];
-						for(var i=0; i<cardsArray.length; i++){
-							cardArrayAux = cardsArray[i];
-							if(cardArrayAux[0] == tileId){
-								break;
+						var continueFlipCards = true;
+						// Count if there are 2 cards front faced
+						var countCards = 0;
+						for(var x=0; x<cardsArray.length; x++){
+							if(cardsArray[x][1] === 1){
+								countCards++;
 							}
 						}
-						// Set background or front
-						if(cardsArray[i][1] === 1){
-							oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
-							cardsArray[i][1] = 0;
-						}else{
-							oEvent.getSource().setBackgroundImage(cardsArray[i][2]);
-							cardsArray[i][1] = 1;
-						}
-					 } );
-					newTile.placeAt(grid);
-				}
-				
-			},
+						if(countCards === 2){
+							// Check if the 2 cards are equal
+							var card1 = "";
+							var card2 = "";
+							for(var x=0; x<cardsArray.length; x++){
+								if(card1 === ""){
+									card1 = cardsArray[x][2];
+								}else if(card2 === ""){
+									card2 = cardsArray[x][2];
+								}
+							}
+							if(card1 != card2){
+								continueFlipCards = false;
+								// Flip cards back over
+								self.resetCard();
+							}
+							// Timer
+							//self.resetCards = true;
+							//self.sleep(2000);
 
-			onPress: function (){
-				idtile1 = this.byId("tile");
-				if(front === 0){
-					idtile1.setBackgroundImage("images/zigzag_pattern.jpg")
-					front = 1;
-				}else{
-					idtile1.setBackgroundImage("");
-					front = 0;
+							//for(var t=0; t<cardsArray.length; t++){
+							//	if(cardsArray[t][1] === 1){
+							//		// Set background
+							//		oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
+							//		cardsArray[t][1] = 0;
+							//	}
+							//}
+							//break;
+						}
+
+						if(continueFlipCards === true){
+							// Check Id
+							var tileId = oEvent.getSource().getId();
+							// Get front status
+							var cardArrayAux = [];
+							for(var i=0; i<cardsArray.length; i++){
+								cardArrayAux = cardsArray[i];
+								if(cardArrayAux[0] == tileId){
+									break;
+								}
+							}
+							// Set background or front
+							if(cardsArray[i][1] === 1){
+								oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
+								cardsArray[i][1] = 0;
+							}else{
+								oEvent.getSource().setBackgroundImage(cardsArray[i][2]);
+								cardsArray[i][1] = 1;
+							}
+						}
+						
+					 } );
+
+					newTile.placeAt(grid);
 				}
 				
 			},
@@ -159,20 +193,19 @@ sap.ui.define([
 				var slot1;
 				var slot2;
 				var resume = 0;
+				var halfTiles = nTiles / 2;
 				randomNum = [];
-				for(var i=0; i<nTiles; i++){
-					// Check if all positions are filled
-					//if(randomNum.includes(undefined) === false){
-					//	break;
-					//}
-					slot1 = this.getRandomNumber(nTiles);
+				randomNum.length = nTiles;
+				
+				for(var i=0; i<halfTiles; i++){
+					slot1 = this.getRandomNumber(nTiles-1);
 					if(randomNum[slot1] != undefined){
 						resume = 0;
 						while(randomNum[slot1] != undefined){
-							if(randomNum.includes(undefined) === false){
+							if(resume === nTiles-1){
 								break;
 							}
-							if(slot1 === nTiles){
+							if(slot1 === nTiles-1){
 								slot1 = 0;
 							}else{
 								slot1 = slot1 + 1;
@@ -182,14 +215,14 @@ sap.ui.define([
 					}
 					randomNum[slot1] = randomNumAux[i];
 
-					slot2 = this.getRandomNumber(nTiles);
+					slot2 = this.getRandomNumber(nTiles-1);
 					if(randomNum[slot2] != undefined){
 						resume = 0;
 						while(randomNum[slot2] != undefined){
-							if(randomNum.includes(undefined) === false){
+							if(resume === nTiles-1){
 								break;
 							}
-							if(slot2 === nTiles){
+							if(slot2 === nTiles-1){
 								slot2 = 0;
 							}else{
 								slot2 = slot2 + 1;
@@ -198,12 +231,35 @@ sap.ui.define([
 						}
 					}
 					randomNum[slot2] = randomNumAux[i];
-
 				}
 			},
 
 			getRandomNumber: function(max){
 				return Math.floor(Math.random() * max);
+			},
+
+			sleep: function(milliseconds){
+				const date = Date.now();
+				let currentDate = null;
+				do {
+				  currentDate = Date.now();
+				} while (currentDate - date < milliseconds);
+			},
+
+			resetCard: function(){
+				// Get panel object
+				var grid = this.getView().byId("panelForGridList");
+
+				// Set background images
+				for(var i=0; i<cardsArray.length ; i++){
+					if(cardsArray[i][1] === 1){
+					var agg = grid.mAggregations;
+					grid.mAggregations.content[i].setBackgroundImage('images/zigzag_pattern.jpg');
+					cardsArray[i][1] = 0;
+					}
+				}
+
 			}
+
 		});
 	});
