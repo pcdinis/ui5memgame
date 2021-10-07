@@ -15,6 +15,7 @@ sap.ui.define([
 		var levelId = "";
 		var cardsArray = [];
 		var randomNum = [];
+		var numTiles = 0;
 
 		return Controller.extend("pt.pcdinis.ui5memgame.ui5memgame.controller.Game", {
 
@@ -36,7 +37,7 @@ sap.ui.define([
 				var grid = this.getView().byId("panelForGridList");
 
 				// Set number of tiles based on selected level
-				var numTiles = 0;
+				numTiles = 0;
 				switch (levelId){
 					case 'easy':
 						numTiles = easyNumTiles;
@@ -49,13 +50,12 @@ sap.ui.define([
 						break;
 					default:
 				}
+				
+				// Get random numbers into an array
+				this.createRandomArr(numTiles);
 
 				// Create tiles based on level
 				var newTile;
-				
-				// Get random numbers into an array
-				this.createRandomArr();
-
 				for( var i=0; i<numTiles; i++){
 					newTile = new sap.m.GenericTile({
 						id : 'tid' + i.toString(),
@@ -113,15 +113,28 @@ sap.ui.define([
 			},
 
 			onPressBack: function (oEvent){
+				// Get panel object
+				var grid = this.getView().byId("panelForGridList");
+				// Delete all tiles
+				for(var i=0; i<cardsArray.length ; i++){
+					var agg = grid.mAggregations;
+					agg.content[0].destroy();
+				}
+
+				// Clear cards array
+				cardsArray = [];
+
+				// Go back to Main Screen
 				var oRouterBack = sap.ui.core.UIComponent.getRouterFor(this);
 				oRouterBack.navTo("RouteMain");
 			},
 
-			createRandomArr: function(){
+			createRandomArr: function(nTiles){
 				var number = 0;
 				var stopIteration = false;
+				var randomNumAux = [];
 				// Create random number array
-				for(var i=0; i<hardNumTiles; i++){
+				for(var i=0; i<nTiles; i++){
 					
 					stopIteration = false;
 					var x = 0;
@@ -129,7 +142,7 @@ sap.ui.define([
 					while(stopIteration === false){
 						number = this.getRandomNumber(hardNumTiles);
 						
-						if(randomNum.includes(number) === false){
+						if(randomNumAux.includes(number) === false){
 							stopIteration = true;
 						}
 
@@ -137,17 +150,55 @@ sap.ui.define([
 							break;
 						}
 						x++;
-
-						//for(t=0; t<hardNumTiles; t++){
-							// If the number was already selected
-						//	if(randomNum[t] === number){
-						//		stopIteration = true;
-						//		break;
-						//	}
-						//}
 					}
 
-					randomNum[i] = number;
+					randomNumAux[i] = number;
+				}
+
+				// Set numbers on randomNum array
+				var slot1;
+				var slot2;
+				var resume = 0;
+				randomNum = [];
+				for(var i=0; i<nTiles; i++){
+					// Check if all positions are filled
+					//if(randomNum.includes(undefined) === false){
+					//	break;
+					//}
+					slot1 = this.getRandomNumber(nTiles);
+					if(randomNum[slot1] != undefined){
+						resume = 0;
+						while(randomNum[slot1] != undefined){
+							if(randomNum.includes(undefined) === false){
+								break;
+							}
+							if(slot1 === nTiles){
+								slot1 = 0;
+							}else{
+								slot1 = slot1 + 1;
+							}
+							resume++;
+						}
+					}
+					randomNum[slot1] = randomNumAux[i];
+
+					slot2 = this.getRandomNumber(nTiles);
+					if(randomNum[slot2] != undefined){
+						resume = 0;
+						while(randomNum[slot2] != undefined){
+							if(randomNum.includes(undefined) === false){
+								break;
+							}
+							if(slot2 === nTiles){
+								slot2 = 0;
+							}else{
+								slot2 = slot2 + 1;
+							}
+							resume++;
+						}
+					}
+					randomNum[slot2] = randomNumAux[i];
+
 				}
 			},
 
