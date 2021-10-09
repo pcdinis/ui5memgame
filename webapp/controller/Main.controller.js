@@ -29,6 +29,10 @@ sap.ui.define([
 				oRouter.navTo("RouteGame", {levelId : "hard"});
 			},
 			
+			onPressScore: function (oEvent){
+
+			},
+
 			onPressExit: function (oEvent){
 				window.close();
 			}

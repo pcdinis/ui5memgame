@@ -1,10 +1,11 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
+	"sap/ui/core/mvc/Controller",
+	"sap/m/MessageBox"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (Controller) {
+	function (Controller, MessageBox) {
 		"use strict";
 
 		const easyNumTiles = 16;
@@ -16,7 +17,9 @@ sap.ui.define([
 		var cardsArray = [];
 		var randomNum = [];
 		var numTiles = 0;
-		//var resetCards = false;
+		var gameOver = false;
+		var gameOverMin = 0;
+		var gameOverSec = 0;
 
 		return Controller.extend("pt.pcdinis.ui5memgame.ui5memgame.controller.Game", {
 
@@ -52,6 +55,11 @@ sap.ui.define([
 					default:
 				}
 				
+				// Set Game Over to false
+				this.gameOver=false;
+				gameOverMin = 0;
+				gameOverSec = 0;
+
 				// Get random numbers into an array
 				this.createRandomArr(numTiles);
 
@@ -63,7 +71,8 @@ sap.ui.define([
 						header : '',
 						subheader : '',
 						backgroundImage : 'images/zigzag_pattern.jpg',
-						headerImage : ''
+						headerImage : '',
+						sizeBehavior : 'Small'
 						});
 
 					// Init card status (back or front) and front image
@@ -117,6 +126,17 @@ sap.ui.define([
 										cardsArray[x][3] = "OK";
 									}
 								}
+								// Check if Game Over
+								self.gameOver=true;
+								for(x=0; x<cardsArray.length; x++){
+									if(cardsArray[x][3] != "OK"){
+										self.gameOver=false;
+									}
+								}
+								if(self.gameOver === true){
+									clearInterval(timerInt);
+									MessageBox.information("You finished the game in " + self.gameOverMin + ":" + self.gameOverSec);
+								}
 							}
 
 						}
@@ -144,10 +164,28 @@ sap.ui.define([
 								}
 							}
 						}
-						
-					 } );
+					 });
 
 					newTile.placeAt(grid);
+
+
+					// Set amd show timer
+					var scs = 0;
+					scs = new Date().setMinutes(new Date().getMinutes() + 0);
+
+					var timerInt = setInterval(function() {
+						if(self.gameOver === false){
+							var countdowntime = scs;
+							var now = new Date().getTime();
+							var cTime = now - countdowntime;
+							var minutes = Math.floor((cTime % (1000 * 60 * 60)) / (1000 * 60));
+							var second = Math.floor((cTime % (1000 * 60)) / 1000);
+							self.byId("timer").setValue("Solve as fast as possible: " + minutes + ":" + second);
+							self.gameOverMin = minutes;
+							self.gameOverSec = second;
+						}
+					}, 1000);
+
 				}
 				
 			},

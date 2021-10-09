@@ -11,20 +11,32 @@
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page" title="{i18n>title}">
+				<Page id="page">
+					<subHeader>
+						<Toolbar>
+							<ToolbarSpacer/>
+							<Title text="{i18n>title}" level="H3"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</subHeader>
 					<content>
-						<Button text="Easy" press="onPressEasyLvl">
-						</Button>
-						<Button text="Medium" press="onPressMediumLvl">
-						</Button>
-						<Button text="Hard" press="onPressHardLvl">
-						</Button>
-						<Button text="Exit" press="onPressExit">
-						</Button>						
+						<FlexBox width="100%" alignItems="Start">
+							<VBox width="100%">
+								<Button text="Easy" width="100%" press="onPressEasyLvl">
+								</Button>
+								<Button text="Medium" width="100%" press="onPressMediumLvl">
+								</Button>
+								<Button text="Hard" width="100%" press="onPressHardLvl">
+								</Button>
+								<Button text="Score" width="100%" press="onPressScore">
+								</Button>
+								<Button text="Exit" width="100%" press="onPressExit">
+								</Button>
+							</VBox>
+						</FlexBox>						
 					</content>
 				</Page>
 			</pages>
-
 		</App>
 	</Shell>
 
