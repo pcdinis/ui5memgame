@@ -20,6 +20,7 @@ sap.ui.define([
 		var gameOver = false;
 		var gameOverMin = 0;
 		var gameOverSec = 0;
+		var timerInt = 0;
 
 		return Controller.extend("pt.pcdinis.ui5memgame.ui5memgame.controller.Game", {
 
@@ -57,8 +58,11 @@ sap.ui.define([
 				
 				// Set Game Over to false
 				this.gameOver=false;
-				gameOverMin = 0;
-				gameOverSec = 0;
+				this.gameOverMin = 0;
+				this.gameOverSec = 0;
+
+				// Clear timerint
+				this.timerint = 0;
 
 				// Get random numbers into an array
 				this.createRandomArr(numTiles);
@@ -134,7 +138,7 @@ sap.ui.define([
 									}
 								}
 								if(self.gameOver === true){
-									clearInterval(timerInt);
+									clearInterval(self.timerInt);
 									MessageBox.information("You finished the game in " + self.gameOverMin + ":" + self.gameOverSec);
 								}
 							}
@@ -167,27 +171,24 @@ sap.ui.define([
 					 });
 
 					newTile.placeAt(grid);
-
-
-					// Set amd show timer
-					var scs = 0;
-					scs = new Date().setMinutes(new Date().getMinutes() + 0);
-
-					var timerInt = setInterval(function() {
-						if(self.gameOver === false){
-							var countdowntime = scs;
-							var now = new Date().getTime();
-							var cTime = now - countdowntime;
-							var minutes = Math.floor((cTime % (1000 * 60 * 60)) / (1000 * 60));
-							var second = Math.floor((cTime % (1000 * 60)) / 1000);
-							self.byId("timer").setValue("Solve as fast as possible: " + minutes + ":" + second);
-							self.gameOverMin = minutes;
-							self.gameOverSec = second;
-						}
-					}, 1000);
-
 				}
-				
+
+				// Set amd show timer
+				var scs = 0;
+				scs = new Date().setMinutes(new Date().getMinutes() + 0);
+
+				this.timerInt = setInterval(function() {
+					if(self.gameOver === false){
+						var countdowntime = scs;
+						var now = new Date().getTime();
+						var cTime = now - countdowntime;
+						var minutes = Math.floor((cTime % (1000 * 60 * 60)) / (1000 * 60));
+						var second = Math.floor((cTime % (1000 * 60)) / 1000);
+						self.byId("timer").setValue("Solve as fast as possible: " + minutes + ":" + second);
+						self.gameOverMin = minutes;
+						self.gameOverSec = second;
+					}
+				}, 1000);
 			},
 
 			onPressBack: function (oEvent){
