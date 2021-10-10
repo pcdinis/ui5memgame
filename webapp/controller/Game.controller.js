@@ -103,6 +103,24 @@ sap.ui.define([
 								countCards++;
 							}
 						}
+						if(countCards === 1){
+							// Check if Game Over
+							self.gameOver=true;
+							var countCardsFlipped = 0;
+							for(x=0; x<cardsArray.length; x++){
+								if(cardsArray[x][1] === 0){
+									//self.gameOver=false;
+									countCardsFlipped++;
+								}
+							}
+							//if(self.gameOver === true){
+							if(countCardsFlipped === 1){
+								clearInterval(self.timerInt);
+								MessageBox.information("You finished the game in " + self.gameOverMin + ":" + self.gameOverSec);
+							}else{
+								self.gameOver=false;
+							}
+						}
 						if(countCards === 2){
 							// Check if the 2 cards are equal
 							var card1 = "";
@@ -129,17 +147,6 @@ sap.ui.define([
 									}else if(cardsArray[x][2] === card2){
 										cardsArray[x][3] = "OK";
 									}
-								}
-								// Check if Game Over
-								self.gameOver=true;
-								for(x=0; x<cardsArray.length; x++){
-									if(cardsArray[x][3] != "OK"){
-										self.gameOver=false;
-									}
-								}
-								if(self.gameOver === true){
-									clearInterval(self.timerInt);
-									MessageBox.information("You finished the game in " + self.gameOverMin + ":" + self.gameOverSec);
 								}
 							}
 
@@ -199,6 +206,10 @@ sap.ui.define([
 					var agg = grid.mAggregations;
 					agg.content[0].destroy();
 				}
+
+				// Clear timer
+				clearInterval(this.timerInt);
+				this.byId("timer").setValue("Solve as fast as possible: ");
 
 				// Clear cards array
 				cardsArray = [];
