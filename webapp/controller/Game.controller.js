@@ -11,6 +11,7 @@ sap.ui.define([
 		const easyNumTiles = 16;
 		const mediumNumTiles = 28;
 		const hardNumTiles = 40;
+		const pathBackgroundImage = "images/background_image.jpg";
 
 		var front = 0;
 		var levelId = "";
@@ -74,7 +75,7 @@ sap.ui.define([
 						id : 'tid' + i.toString(),
 						header : '',
 						subheader : '',
-						backgroundImage : 'images/zigzag_pattern.jpg',
+						backgroundImage : pathBackgroundImage,
 						headerImage : '',
 						sizeBehavior : 'Small'
 						});
@@ -167,7 +168,7 @@ sap.ui.define([
 							if(cardsArray[i][3]  != "OK"){						
 								// Set background or front
 								if(cardsArray[i][1] === 1){
-									oEvent.getSource().setBackgroundImage('images/zigzag_pattern.jpg');
+									oEvent.getSource().setBackgroundImage(pathBackgroundImage);
 									cardsArray[i][1] = 0;
 								}else{
 									oEvent.getSource().setBackgroundImage(cardsArray[i][2]);
@@ -310,7 +311,7 @@ sap.ui.define([
 				for(var i=0; i<cardsArray.length ; i++){
 					if(cardsArray[i][1] === 1 && cardsArray[i][3] != "OK"){
 					var agg = grid.mAggregations;
-					grid.mAggregations.content[i].setBackgroundImage('images/zigzag_pattern.jpg');
+					grid.mAggregations.content[i].setBackgroundImage(pathBackgroundImage);
 					cardsArray[i][1] = 0;
 					}
 				}
