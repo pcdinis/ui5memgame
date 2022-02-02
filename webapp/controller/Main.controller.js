@@ -35,7 +35,11 @@ sap.ui.define([
 
 			onPressExit: function (oEvent){
 				window.close();
-			}
+			},
+
+			handleBackPress: function(evt) {
+                window.location.replace("https://www.pcdinis.com/webcenter/");
+            }
 			
 		});
 	});

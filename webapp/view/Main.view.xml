@@ -7,37 +7,43 @@
 	xmlns:card="sap.f.cards"
     displayBlock="true"
     xmlns="sap.m"
+	xmlns:u="sap.ui.unified"
 >
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<Page id="page">
-					<subHeader>
-						<Toolbar>
-							<ToolbarSpacer/>
-							<Title text="{i18n>title}" level="H3"/>
-							<ToolbarSpacer/>
-						</Toolbar>
-					</subHeader>
-					<content>
-						<FlexBox width="100%" alignItems="Start">
-							<VBox width="100%">
-								<Button text="Easy" width="100%" press="onPressEasyLvl">
-								</Button>
-								<Button text="Medium" width="100%" press="onPressMediumLvl">
-								</Button>
-								<Button text="Hard" width="100%" press="onPressHardLvl">
-								</Button>
-								<!--<Button text="Score" width="100%" press="onPressScore">
-								</Button>
-								<Button text="Exit" width="100%" press="onPressExit">
-								</Button>-->
-							</VBox>
-						</FlexBox>						
-					</content>
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+	<u:Shell id="shell">
+		<u:headEndItems>
+			<u:ShellHeadItem icon="sap-icon://nav-back" tooltip="Back" press="handleBackPress"></u:ShellHeadItem>
+		</u:headEndItems>
+		<u:content>
+			<App id="app">
+				<pages>
+					<Page id="page">
+						<subHeader>
+							<Toolbar>
+								<ToolbarSpacer/>
+								<Title text="{i18n>title}" level="H3"/>
+								<ToolbarSpacer/>
+							</Toolbar>
+						</subHeader>
+						<content>
+							<FlexBox width="100%" alignItems="Start">
+								<VBox width="100%">
+									<Button text="Easy" width="100%" press="onPressEasyLvl">
+									</Button>
+									<Button text="Medium" width="100%" press="onPressMediumLvl">
+									</Button>
+									<Button text="Hard" width="100%" press="onPressHardLvl">
+									</Button>
+									<!--<Button text="Score" width="100%" press="onPressScore">
+									</Button>
+									<Button text="Exit" width="100%" press="onPressExit">
+									</Button>-->
+								</VBox>
+							</FlexBox>						
+						</content>
+					</Page>
+				</pages>
+			</App>
+		</u:content>
+	</u:Shell>
 
 </mvc:View>

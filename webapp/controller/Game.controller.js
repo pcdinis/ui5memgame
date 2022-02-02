@@ -215,9 +215,17 @@ sap.ui.define([
 				// Clear cards array
 				cardsArray = [];
 
-				// Go back to Main Screen
-				var oRouterBack = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouterBack.navTo("RouteMain");
+				// Check if URL is pcdinis portal
+				if(window.location.href === "https://www.pcdinis.com/memorygame/#/RouteGame/easy" ||
+				   window.location.href === "https://www.pcdinis.com/memorygame/#/RouteGame/medium" ||
+				   window.location.href === "https://www.pcdinis.com/memorygame/#/RouteGame/hard"){
+					window.location.replace("https://www.pcdinis.com/memorygame");
+				}else{
+					// Go back to Main Screen
+					var oRouterBack = sap.ui.core.UIComponent.getRouterFor(this);
+					oRouterBack.navTo("RouteMain");
+				};
+				
 			},
 
 			createRandomArr: function(nTiles){
