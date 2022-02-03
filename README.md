@@ -28,3 +28,9 @@ If you want to play the game: https://www.pcdinis.com/memorygame/
 1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
 
 
+#### Game screenshot:
+
+![imagem](https://user-images.githubusercontent.com/20087885/136797971-73f2bf08-aa77-4591-b645-3b7ef711bace.png)
+
+
+
