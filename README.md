@@ -1,25 +1,19 @@
-## Application Details
-|               |
-| ------------- |
-|**Generation Date and Time**<br>Tue Sep 21 2021 15:24:52 GMT+0100 (Hora de verão da Europa Ocidental)|
-|**App Generator**<br>@sap/generator-fiori|
-|**App Generator Version**<br>1.3.4|
-|**Generation Platform**<br>Visual Studio Code|
-|**Floorplan Used**<br>simple|
-|**Service Type**<br>None|
-|**Service URL**<br>N/A
-|**Module Name**<br>ui5memgame|
-|**Application Title**<br>UI5 Mem Game|
-|**Namespace**<br>pt.pcdinis.ui5memgame|
-|**UI5 Theme**<br>sap_fiori_3|
-|**UI5 Version**<br>Latest|
-|**Enable Code Assist Libraries**<br>False|
-|**Add Eslint configuration**<br>False|
-|**Enable Telemetry**<br>True|
+#### Game screenshot:
 
-## ui5memgame
+![imagem](https://user-images.githubusercontent.com/20087885/136797971-73f2bf08-aa77-4591-b645-3b7ef711bace.png)
 
-UI5 Memory Game
+## Memory Game
+
+A game developed with UI5 libs
+
+Instead of downloading games to play with my kid I decided to develop some simple games to play with him. This is not the state of the art on javascript language but I had a lot of fun learning about it.
+
+## Play the game
+
+If you want to play the game: https://www.pcdinis.com/memorygame/
+
+- The main goal is to find all the card combinations fast as possible;
+- The game was created with 3 different difficulty levels. Harder level have more cards than the easiest one.
 
 ### Starting the generated app
 
